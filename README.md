@@ -2,7 +2,7 @@
 
 A set of examples on how the Eterra framework can be used.
 
-~~Download current version as ZIP (0.1)~~
+[Download current version as ZIP (0.1)](https://github.com/bauermaximilian/Eterra.Demo/releases/download/0.1/EterraDemo-0.1.zip)
 
 [Download OpenAL redistributables for sound support on Windows (external link)](https://www.openal.org/downloads/oalinst.zip)
 
