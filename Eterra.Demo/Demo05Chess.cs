@@ -27,7 +27,17 @@ using System.Numerics;
 
 namespace Eterra.Demo
 {
-    internal class Demo05Chess : EterraApplicationBase
+    /// <summary>
+    /// Provides a demonstration on how to use the techniques demonstrated in
+    /// the previous demos to create the foundation for a simple 2D chess game.
+    /// </summary>
+    /// <remarks>
+    /// It's more of a "foundation" than a real game because it doesn't 
+    /// contain any implementation of game logic, as it should only 
+    /// demonstrate how the resource, graphics and user input part could 
+    /// be done.
+    /// </remarks>
+    class Demo05Chess : EterraApplicationBase
     {
         private enum PawnType
         {
@@ -195,7 +205,8 @@ namespace Eterra.Demo
                         PawnType.Disabled : field[x, y];
 
                     if (!isBorderDrawing && fieldPawn != PawnType.Disabled)
-                        canvas.Texture = (drawLightField ? tileLight : tileDark);
+                        canvas.Texture = 
+                            (drawLightField ? tileLight : tileDark);
                     else if ((y == 0 && x == 8) || (y == -1 && x == 7))
                         canvas.Texture = tileExit;
                     else if ((y == 1 && x == 8) || (y == -1 && x == 6))

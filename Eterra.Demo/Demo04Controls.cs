@@ -26,6 +26,11 @@ using System.Numerics;
 
 namespace Eterra.Demo
 {
+    /// <summary>
+    /// Provides a demonstration on how to handle user input through keyboard,
+    /// mouse and devices using the <see cref="ControlMapping"/> functionality
+    /// of <see cref="Eterra"/>.
+    /// </summary>
     class Demo04Controls : EterraApplicationBase
     {
         //This application is structured into different screens - an enum
@@ -128,7 +133,8 @@ namespace Eterra.Demo
             //the "Controls" property of the EterraApplicationBase. The most 
             //usage cases are covered by the "Map" method - if not, you can 
             //either use the "MapCustom" method or just access the input units
-            //directly - but this goes beyond the scope of this introduction.
+            //directly with Controls.Input - but this goes beyond the scope of 
+            //this introduction.
             menuUp = Controls.Map(KeyboardKey.Up, GamepadButton.DPadUp,
                 GamepadAxis.LeftStickUp);
             menuDown = Controls.Map(KeyboardKey.Down, 
@@ -295,9 +301,54 @@ namespace Eterra.Demo
 
         protected override void Update(TimeSpan delta)
         {
+            //Just like in the Redraw method above, this one-liner prevents
+            //any update logic from happening before all resources are loaded.
             if (Resources.LoadingTasksPending > 0) return;
 
-            if (currentScreen == ControlScreen.Main)
+            if (currentScreen == ControlScreen.Control)
+            {
+                //The value of a control mapping should always be greater than
+                //or equal to 0. It's regular maximum is at 1.0 - higher values
+                //are possible too (like for the mouse speed).
+                //Its current value can be accessed via the "Value" property 
+                //of a control mapping.
+                currentPlayerMove = new Vector2(
+                    playerMoveRight.Value - playerMoveLeft.Value,
+                    playerMoveForward.Value - playerMoveBackward.Value);
+
+                //To shorten things a bit, the control mapping can also be used
+                //whereever a float value is expected - and will be implicitely
+                //converted into its current value.
+                currentPlayerLook = new Vector2(Math.Max(-1, Math.Min(1, 
+                    playerLookRight - playerLookLeft)), Math.Max(-1, 
+                    Math.Min(1, playerLookUp - playerLookDown)));
+
+                //If the current value of an input is greater than the
+                //activation treshold (defined as constant "ActivationTreshold"
+                //in the ControlMapping class), the value is considered to be
+                //"active". This can be used to determine quickly wheter a 
+                //button or key is currently pressed down or if an analog pad
+                //or trigger is pushed in "enough" so that the element can
+                //be considered as active.
+                playerCurrentlyShooting = playerShoot.IsActive;
+
+                //When a control element is activated by for example pressing 
+                //a button, so that the "IsActive" property of an control 
+                //element changes from "false" to "true", the "IsActivated"
+                //property can be used to retrieve this state change.
+                //This value can, for example, be used to react a key press 
+                //to navigate in a menu, as the value will only be "true" once 
+                //per changing the state from "Inactive" to "Active" in an 
+                //update cycle.
+                if (playerJump.IsActivated) lastPlayerJump = DateTime.Now;
+
+                if (menuBack.IsActivated)
+                {
+                    currentScreen = ControlScreen.Main;
+                    Controls.Input.SetMouse(MouseMode.VisibleFree);
+                }
+            }
+            else if (currentScreen == ControlScreen.Main)
             {
                 if (menuUp.IsActivated)
                 {
@@ -329,24 +380,6 @@ namespace Eterra.Demo
             else if (currentScreen == ControlScreen.Leave)
             {
                 if (menuAccept.IsActivated || menuBack.IsActivated) Close();
-            }
-            else if (currentScreen == ControlScreen.Control)
-            {
-                if (menuBack.IsActivated)
-                {
-                    currentScreen = ControlScreen.Main;
-                    Controls.Input.SetMouse(MouseMode.VisibleFree);
-                }
-
-                currentPlayerMove = new Vector2(
-                    playerMoveRight - playerMoveLeft,
-                    playerMoveForward - playerMoveBackward);
-                currentPlayerLook = new Vector2(
-                    Math.Max(-1, Math.Min(1, playerLookRight - playerLookLeft)),
-                    Math.Max(-1, Math.Min(1, playerLookUp - playerLookDown)));
-
-                playerCurrentlyShooting = playerShoot.IsActive;
-                if (playerJump.IsActivated) lastPlayerJump = DateTime.Now;
             }
         }
 

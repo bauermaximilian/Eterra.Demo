@@ -28,7 +28,15 @@ using System.Numerics;
 
 namespace Eterra.Demo
 {
-    internal class Demo07Game : EterraApplicationBase
+    /// <summary>
+    /// Provides a demonstration on how to use the techinques demonstrated in
+    /// the previous demos to create a short walking simulator in 3D.
+    /// </summary>
+    /// <remarks>
+    /// This code needs to be refactored and commented before it's actually a
+    /// good example on how to use the framework - right now, it just... works.
+    /// </remarks>
+    class Demo07Game : EterraApplicationBase
     {
         private class GameEntity : IDisposable
         {

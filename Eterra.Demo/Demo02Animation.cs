@@ -29,7 +29,7 @@ namespace Eterra.Demo
     /// Provides a demonstration of how to create and play different kinds
     /// of simple animations on the example of the prev.
     /// </summary>
-    internal class Demo02Animation : EterraApplicationBase
+    class Demo02Animation : EterraApplicationBase
     {
         //Just like in the previous demo, we're gonna use a simple plane mesh
         //for drawing and will initialize a RenderParameters instance here.

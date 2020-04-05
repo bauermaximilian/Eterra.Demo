@@ -34,7 +34,7 @@ namespace Eterra.Demo
     /// It's recommended to start at this class and then continue at the
     /// next demo <see cref="Demo02Animation"/>.
     /// </remarks>
-    internal class Demo01FirstSteps : EterraApplicationBase
+    class Demo01FirstSteps : EterraApplicationBase
     {
         //In this example, we will draw... rectangles. And as the framework
         //supports both 2D and 3D (which we will cover later), everything which
