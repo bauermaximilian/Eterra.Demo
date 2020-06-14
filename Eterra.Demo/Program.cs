@@ -28,77 +28,59 @@ namespace Eterra.Demo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("┌───────────────────────────────────────────┐");
-            Console.WriteLine("│          Eterra Demo Application          │");
-            Console.WriteLine("└───────────────────────────────────────────┘");
-            Console.WriteLine();
-            Console.WriteLine("(1) First steps: Static Rectangles Simulator");
-            Console.WriteLine("(2) Animations: Moving Rectangles Simulator");
-            Console.WriteLine("(3) Resources: Frame Works");
-            Console.WriteLine("(4) User Input: Take CTRL");
-            Console.WriteLine("(5) 2D game: *flirtly* Do you like... chess?");
-            Console.WriteLine("(6) Shading: Moving Box Simulator - in 3D!1!");
-            Console.WriteLine("(7) 3D game: The big finale - brace yourself!");
-            Console.WriteLine();
-            Console.Write("Please enter the number of the demo to run: ");
+            Console.WriteLine(
+                "┌─────────────────────────────────────────────────┐");
+            Console.WriteLine(
+                "│          Eterra Demo Application 0.1.1          │");
+            Console.WriteLine(
+                "└─────────────────────────────────────────────────┘");
 
-            int selection = 0;
-            int attempts = 0;
+            Console.WriteLine();
 
-            while (selection == 0)
+            int selection = 7;
+
+            if (args.Length > 0)
             {
-                attempts++;
-                string inputString = (Console.ReadLine() ?? "").Trim();
+                string argument =
+                    args[0].Trim().TrimStart('/', '-').ToLowerInvariant();
 
-                if (int.TryParse(inputString, out int input) &&
-                    input > 0 && input < 8) selection = input;
-                else if (attempts == 1)
+                if (argument == "help" || argument == "?" || argument == "h")
                 {
-                    Console.Write("The input is not a valid number " +
-                           "between 1 and 7. Please try again: ");
+                    Console.WriteLine(
+                        "/help\tShow this information.");
+                    Console.WriteLine(
+                        "/1\tFirst steps: Static Rectangles Simulator");
+                    Console.WriteLine(
+                        "/2\tAnimations: Moving Rectangles Simulator");
+                    Console.WriteLine(
+                        "/3\tResources: Frame Works");
+                    Console.WriteLine(
+                        "/4\tUser Input: Take CTRL");
+                    Console.WriteLine(
+                        "/5\t2D game: *flirtly* Do you like... chess?");
+                    Console.WriteLine(
+                        "/6\tShading: Moving Box Simulator - in 3D!1!");
+                    Console.WriteLine(
+                        "/7\t3D game: Shiver with antici...pation!");
+                    return;
                 }
-                else if (attempts == 2)
+                else if (int.TryParse(argument, out int argumentSelection)
+                    && argumentSelection >= 1 && argumentSelection <= 7)
+                    selection = argumentSelection;
+                else
                 {
-                    Console.Write("The input is still not a valid number " +
-                           "between 1 and 7. Please try again: ");
-                }
-                else if (attempts == 3)
-                {
-                    Console.Write("Seriously. Just give me a number between " +
-                        "1 and 7, like... 1, or 4: ");
-                }
-                else if (attempts == 4)
-                {
-                    Console.Write("You got to be shitting me... NUMBER! " +
-                        "BETWEEN 1 AND 7! TYPE ONE AND PRESS RETURN: ");
-                }
-                else if (attempts == 5 && 
-                    inputString.Trim().ToLower() == "one")
-                {
-                    Thread.Sleep(2000);
-                    Console.Write("Thats... ");
-                    Thread.Sleep(1000);
-                    Console.Write("close enough. ");
-                    Thread.Sleep(1400);
-                    Console.WriteLine("Here you go.");
-                    Thread.Sleep(200);
-                    selection = 1;
-                }
-                else if (attempts >= 5)
-                {
-                    Thread.Sleep(500); Console.Write('.');
-                    Thread.Sleep(500); Console.Write('.');
-                    Thread.Sleep(500); Console.Write('.');
-                    Thread.Sleep(1000);
-                    Console.WriteLine(" Bye.");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("Invalid command line parameter. Use " +
+                    "\"/help\" for more information.");
                     return;
                 }
             }
-
-            Console.WriteLine();
-            for (int i = 0; i < (Console.BufferWidth); i++) Console.Write('─');
-            Console.WriteLine();
+            else
+            {
+                Console.WriteLine("Hint: See the command line parameter " +
+                    "\"/help\" for the other demos included.");
+                Console.WriteLine("Starting default example #7...");
+                Console.WriteLine();
+            }
 
             EterraApplicationBase app = null;
             StreamWriter logWriter = null;
@@ -142,8 +124,6 @@ namespace Eterra.Demo
             }
 
             Console.WriteLine();
-            for (int i = 0; i < (Console.BufferWidth); i++)
-                Console.Write('─');
 
             if (logWriter != null)
             {
