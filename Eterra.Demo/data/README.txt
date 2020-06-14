@@ -1,5 +1,5 @@
-﻿The image/3D files (*.PNG, *.JPG, *.PSD, *.FBX, *.BLEND), in this directory are 
-(C) by Maximilian Bauer and licensed under a 
+﻿The image/3D files (*.PNG, *.JPG, *.PSD, *.FBX, *.BLEND, *.ICO, *.AI) in this 
+directory are (C) by Maximilian Bauer and licensed under a 
 Creative Commons Attribution-ShareAlike 4.0 International License.
 
 You should have received a copy of the license along with this
